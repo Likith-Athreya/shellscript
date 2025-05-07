@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Download NAV data from AMFI
+curl -s https://www.amfiindia.com/spages/NAVAll.txt -o NAVAll.txt
+
+# Extract Scheme Name and Asset Value columns, skipping header and empty lines
+awk -F ';' 'BEGIN {OFS="\\t"} /^[0-9]+;/ {print $4, $5}' NAVAll.txt > schemes.tsv
+
+echo "Data saved to schemes.tsv"
